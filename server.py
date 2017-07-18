@@ -18,13 +18,21 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
+    return """<!doctype html><html>Hi! This is the home page.
+                Enter <a href="/hello">'here'.</a></html>"""
 
 
 @app.route('/hello')
 def say_hello():
     """Say hello and prompt for user's name."""
 
+    ### how to automate option values. Would concatenate string before with
+        ### dropdown, and ending part of script.
+
+    # dropdown = "<select ...=..>"
+    # for comp in AWESOMENESS:
+    #     dropdown += """<option value='{}'>{}</option>""".format(comp, comp)
+    # drop+= '</select>'
     return """
     <!doctype html>
     <html>
@@ -35,8 +43,37 @@ def say_hello():
         <h1>Hi There!</h1>
         <form action="/greet">
           What's your name? <input type="text" name="person">
+          Select your compliment: <select name="compliment">
+            <option value='awesome'>awesome</option>
+            <option value='terrific'>terrific</option>
+            <option value='fantastic'>fantastic</option>
+            <option value='neato'>neato</option>
+            <option value='wowza'>wowza</option>
+            <option value='fantabulous'>fantabulous</option>
+            <option value='oh-so-not-meh'>oh-so-not-meh</option>
+            <option value='fantastic'>fantastic</option>
+            <option value='brilliant'>brilliant</option>
+            <option value='ducky'>ducky</option>
+            <option value='coolio'>coolio</option>
+            <option value='incredible'>incredible</option>
+            <option value='wonderful'>wonderful</option>
+            <option value='smashing'>smashing</option>
+            <option value='lovely'>lovely</option>
+            </select>
           <input type="submit" value="Submit">
         </form>
+        <br/><br/><h1>OR!!!!!</h1><br/>
+        <form action="/greet"><br/><br/>
+        What's your name? <input type="text" name="person"><br/>
+          Select your rude greeting: <br/>
+          <input type="radio" name="compliment" value='asshole'>asshole</input><br/>
+          <input type="radio" name="compliment" value='bumsicle'>bumsicle</input><br/>
+          <input type="radio" name="compliment" value='boot-muncher'>boot-muncher</input><br/>
+          <input type="radio" name="compliment" value='fairy-fart'>fairy fart</input><br/>
+          <input type="radio" name="compliment" value='blanched-whale'>blanched whale</input><br/>
+          <input type="submit" value="Submit">
+        </form>
+
       </body>
     </html>
     """
@@ -47,9 +84,7 @@ def greet_person():
     """Get user by name."""
 
     player = request.args.get("person")
-
-    compliment = choice(AWESOMENESS)
-
+    compliment = request.args.get("compliment")
     return """
     <!doctype html>
     <html>
